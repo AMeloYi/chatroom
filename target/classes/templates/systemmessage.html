@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+</head>
+<body>
+	<ul>
+		<li th:each="u : ${users}" th:text="${u.name}">user</li>
+	</ul>
+</body>
+</html>

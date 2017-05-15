@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{layouts/main}"
+>
+
+<head>
+<title th:text="#{manageuser.title}">User management</title>
+
+<style type="text/css">
+.main-center {
+	margin: 0 auto;
+	padding: 40px;
+}
+</style>
+</head>
+
+<body>
+		<th:block layout:fragment="main">
+				<div class="main-login main-center">
+						<table class="table">
+								<thead>
+										<tr>
+												<th>Username</th>
+												<th>Name</th>
+												<th>Email</th>
+												<th>Actions</th>
+										</tr>
+								</thead>
+								<tbody>
+										<tr th:each="u : ${users}">
+												<td th:text="${u.username}">Username</td>
+												<td th:text="${u.name}">Name</td>
+												<td th:text="${u.email}">Email</td>
+												<td><a href="#"
+														th:href="@{users/edit/{id}(id=${u.id})}"
+														class="btn  btn-default"
+												> <i class="fa fa-pencil"></i> <span
+																th:text="#{users.edit}"
+														>Edit</span>
+												</a> <a href="#"
+														th:if="${u.enabled} and ${authUser.id} != ${u.id}"
+														th:href="@{users/disable/{id}(id=${u.id})}"
+														class="btn  btn-warning"
+												> <i class="fa fa-times"></i> <span
+																th:text="#{users.disable}"
+														>Disable</span>
+												</a> <a href="#"
+														th:if="!${u.enabled} and ${authUser.id} != ${u.id}"
+														th:href="@{users/enable/{id}(id=${u.id})}"
+														class="btn  btn-success"
+												> <i class="fa fa-check"></i> <span
+																th:text="#{users.enable}"
+														>Enable</span>
+												</a> <a href="#" th:if="${authUser.id} != ${u.id}"
+														th:href="@{users/delete/{id}(id=${u.id})}"
+														class="btn  btn-danger"
+												> <i class="fa fa-trash-o fa-lg"></i> <span
+																th:text="#{users.delete}"
+														>Delete</span>
+												</a></td>
+										</tr>
+								</tbody>
+						</table>
+				</div>
+		</th:block>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{layouts/main}"
+>
+
+<head>
+<title th:text="#{user.edit.title}">Edit user page</title>
+
+<style type="text/css">
+.main-center {
+	margin: 0 auto;
+	max-width: 330px;
+	padding: 40px;
+}
+</style>
+</head>
+
+<body>
+		<th:block layout:fragment="main">
+				<div class="main-login main-center">
+						<form th:action="@{/admin/users/edit/{id}(id=${user.id})}"
+								th:object="${userCommand}" method="post" class="form-horizontal"
+						>
+								<div class="form-group"
+										th:classappend="${#fields.hasErrors('username')}? has-error"
+								>
+										<label for="username" th:text="#{user.edit.username}"
+												class="cols-sm-2 control-label"
+										>Username</label>
+										<div class="cols-sm-10">
+												<div class="input-group">
+														<span class="input-group-addon"><i
+																class="fa fa-users" aria-hidden="true"
+														></i></span> <input type="text" id="username" name="username"
+																autofocus="autofocus" class="form-control"
+																th:placeholder="#{user.edit.username-placeholder}"
+																th:field="*{username}"
+														/>
+												</div>
+												<div class="input-group"
+														th:if="${#fields.hasErrors('username')}"
+												>
+														<ul>
+																<li th:each="err : ${#fields.errors('username')}"
+																		th:text="${err}"
+																/>
+														</ul>
+												</div>
+										</div>
+								</div>
+
+								<div class="form-group"
+										th:classappend="${#fields.hasErrors('name')}? has-error"
+								>
+										<label for="username" th:text="#{user.edit.name}"
+												class="cols-sm-2 control-label"
+										>Username</label>
+										<div class="cols-sm-10">
+												<div class="input-group">
+														<span class="input-group-addon"><i
+																class="fa fa-user" aria-hidden="true"
+														></i></span> <input type="text" id="name" name="name"
+																autofocus="autofocus" class="form-control"
+																th:placeholder="#{user.edit.name-placeholder}"
+																th:field="*{name}"
+														/>
+												</div>
+												<div class="input-group"
+														th:if="${#fields.hasErrors('name')}"
+												>
+														<ul>
+																<li th:each="err : ${#fields.errors('name')}"
+																		th:text="${err}"
+																/>
+														</ul>
+												</div>
+										</div>
+								</div>
+
+								<div class="form-group"
+										th:classappend="${#fields.hasErrors('email')}? has-error"
+								>
+										<label for="email" th:text="#{user.edit.email}"
+												class="cols-sm-2 control-label"
+										>Username</label>
+										<div class="cols-sm-10">
+												<div class="input-group">
+														<span class="input-group-addon"><i
+																class="fa fa-envelope" aria-hidden="true"
+														></i></span> <input type="text" id="email" name="email"
+																autofocus="autofocus" class="form-control"
+																th:placeholder="#{user.edit.email-placeholder}"
+																th:field="*{email}"
+														/>
+												</div>
+												<div class="input-group"
+														th:if="${#fields.hasErrors('email')}"
+												>
+														<ul>
+																<li th:each="err : ${#fields.errors('email')}"
+																		th:text="${err}"
+																/>
+														</ul>
+												</div>
+										</div>
+								</div>
+
+								<div class="form-group">
+										<div class="btn-group" style="text-align: center">
+												<button type="submit" class="btn btn-success btn-lg ">
+														<span th:text="#{user.edit.save}">Save</span>
+												</button>
+												<button class="btn btn-default btn-lg">
+														<a href="/admin/users" th:href="@{/admin/users}"
+																th:text="#{user.edit.cancel}"
+														>Cancel</a>
+												</button>
+										</div>
+								</div>
+						</form>
+				</div>
+		</th:block>
+</body>
+</html>

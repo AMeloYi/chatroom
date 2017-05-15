@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{layouts/main}"
+>
+<head>
+  <title th:text="#{chatroom.title}">Chatroom page</title>
+  <style type="text/css">
+  .main-center {
+  	margin: 0 auto;
+  	max-width: 330px;
+  	padding: 40px;
+  }
+  .iframe_publicmessage {
+  	width: 100%;
+  	height: 300px;
+  }
+    .iframe_privatemessage {
+  	width: 100%;
+  	height: 80px;
+  }
+  </style>
+</head>
+
+
+<body>
+  <th:block layout:fragment="main">
+	<div class="panel-heading">
+		<div class="panel-title text-center">
+			<h1 class="title" th:text=${currentroom}>Chatroom</h1>
+				<hr>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row clearfix">
+			<div class="col-md-4 column">
+				Users in the current room:
+				<ul>
+					<li th:each="u : ${users}" th:text="${u.name}">user</li>
+				</ul>
+				<br/>
+				Commands available:
+				<ul>
+					<li>\logout</li>
+					<li>\changepassword</li>
+					<li>\displaytime</li>
+					<li>\displayme</li>
+					<li>\createroom</li>
+					<li>\closeroom</li>
+					<li>\changeroom</li>
+					<li>\inviteuser</li>
+					<li>\listrooms</li>
+				</ul>
+				<br/>
+				<div th:text=${SystemTitle}>System Message:</div>
+				<ul>
+					<li th:each="s:${SystemMessage}" th:text="${s}">system message</li>
+				</ul>
+			</div>
+			
+			<div class="col-md-8 column clearfix">
+				<iframe class="iframe_publicmessage" src="publicmessage.html">
+				</iframe><br/>
+				<iframe class="iframe_privatemessage" src="privatemessage.html">
+				</iframe><br/>
+				
+				
+				<form th:action="@{/chatroom}" method="post">
+					<select name="selectReceiver">
+					<option th:value ="${currentroom}" th:text="${currentroom}">currentRoom</option>
+					<option th:each="u:${users}" th:text="${u.name}" th:value="${u.name}">user</option>
+					</select>
+					<input type="text" name="inputText">
+					<button type="submit" value="Send" class="btn btn-primary send-button">Send</button>
+			 	</form>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

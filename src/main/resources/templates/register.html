@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{layouts/main}"
+>
+
+<head>
+<title th:text="#{login.title}">Login page</title>
+
+<style type="text/css">
+.main-center {
+	margin: 0 auto;
+	max-width: 330px;
+	padding: 40px;
+}
+</style>
+</head>
+
+<body>
+		<th:block layout:fragment="main">
+				<div class="panel-heading">
+						<div class="panel-title text-center">
+								<h1 class="title" th:text="#{login.title}">Company Name</h1>
+								<hr>
+						</div>
+				</div>
+				<div class="main-login main-center">
+						<form th:action="@{/register}" th:object="${registerUserCommand}"
+								method="post" class="form-horizontal"
+						>
+								<div class="form-group"
+										th:classappend="${#fields.hasErrors('user.username')}? has-error"
+								>
+										<label for="username" th:text="#{login.username}"
+												class="cols-sm-2 control-label"
+										>Username</label>
+										<div class="cols-sm-10">
+												<div class="input-group">
+														<span class="input-group-addon"><i
+																class="fa fa-users" aria-hidden="true"
+														></i></span> <input type="text" id="username" name="user.username"
+																autofocus="autofocus" class="form-control"
+																th:placeholder="#{login.username-placeholder}"
+																th:field="*{user.username}"
+														/>
+												</div>
+												<div class="input-group"
+														th:if="${#fields.hasErrors('user.username')}"
+												>
+														<ul>
+																<li th:each="err : ${#fields.errors('user.username')}"
+																		th:text="${err}"
+																/>
+														</ul>
+												</div>
+										</div>
+								</div>
+
+								<div class="form-group"
+										th:classappend="${#fields.hasErrors('user.name')}? has-error"
+								>
+										<label for="username" th:text="#{login.name}"
+												class="cols-sm-2 control-label"
+										>Username</label>
+										<div class="cols-sm-10">
+												<div class="input-group">
+														<span class="input-group-addon"><i
+																class="fa fa-user" aria-hidden="true"
+														></i></span> <input type="text" id="name" name="user.name"
+																autofocus="autofocus" class="form-control"
+																th:placeholder="#{login.name-placeholder}"
+																th:field="*{user.name}"
+														/>
+												</div>
+												<div class="input-group"
+														th:if="${#fields.hasErrors('user.name')}"
+												>
+														<ul>
+																<li th:each="err : ${#fields.errors('user.name')}"
+																		th:text="${err}"
+																/>
+														</ul>
+												</div>
+										</div>
+								</div>
+
+								<div class="form-group"
+										th:classappend="${#fields.hasErrors('user.email')}? has-error"
+								>
+										<label for="email" th:text="#{login.email}"
+												class="cols-sm-2 control-label"
+										>Username</label>
+										<div class="cols-sm-10">
+												<div class="input-group">
+														<span class="input-group-addon"><i
+																class="fa fa-envelope" aria-hidden="true"
+														></i></span> <input type="text" id="email" name="user.email"
+																autofocus="autofocus" class="form-control"
+																th:placeholder="#{login.email-placeholder}"
+																th:field="*{user.email}"
+														/>
+												</div>
+												<div class="input-group"
+														th:if="${#fields.hasErrors('user.email')}"
+												>
+														<ul>
+																<li th:each="err : ${#fields.errors('user.email')}"
+																		th:text="${err}"
+																/>
+														</ul>
+												</div>
+										</div>
+								</div>
+
+								<div class="form-group"
+										th:classappend="${#fields.hasErrors('password.password')}? has-error"
+								>
+										<label for="password" th:text="#{login.password}"
+												class="cols-sm-2 control-label"
+										>Password</label>
+										<div class="cols-sm-10">
+												<div class="input-group">
+														<span class="input-group-addon"><i
+																class="fa fa-lock fa-lg" aria-hidden="true"
+														></i></span> <input type="password" id="password"
+																name="password.password" class="form-control"
+																th:placeholder="#{login.password-placeholder}"
+																th:field="*{password.password}"
+														/>
+												</div>
+												<div class="input-group"
+														th:if="${#fields.hasErrors('password.password')}"
+												>
+														<ul>
+																<li
+																		th:each="err : ${#fields.errors('password.password')}"
+																		th:text="${err}"
+																/>
+														</ul>
+												</div>
+										</div>
+								</div>
+
+								<div class="form-group"
+										th:classappend="${#fields.hasErrors('password.passwordConfirmation')}? has-error"
+								>
+										<label for="passwordConfirmation"
+												th:text="#{login.password-confirmation}"
+												class="cols-sm-2 control-label"
+										>Password</label>
+										<div class="cols-sm-10">
+												<div class="input-group">
+														<span class="input-group-addon"><i
+																class="fa fa-lock fa-lg" aria-hidden="true"
+														></i></span> <input type="password" id="passwordConfirmation"
+																name="password.passwordConfirmation"
+																class="form-control"
+																th:placeholder="#{login.password-confirmation-placeholder}"
+																th:field="*{password.passwordConfirmation}"
+														/>
+												</div>
+												<div class="input-group"
+														th:if="${#fields.hasErrors('password.passwordConfirmation')}"
+												>
+														<ul>
+																<li
+																		th:each="err : ${#fields.errors('password.passwordConfirmation')}"
+																		th:text="${err}"
+																/>
+														</ul>
+												</div>
+										</div>
+								</div>
+								<div class="form-group">
+										<button type="submit" value="Log in"
+												class="btn btn-primary btn-lg btn-block login-button"
+										>
+												<span th:text="#{login.register}">Register</span>
+										</button>
+								</div>
+								<div class="login-login text-center">
+										<a href="/login" th:href="@{/login}" th:text="#{login.login}">Register</a>
+								</div>
+						</form>
+				</div>
+		</th:block>
+</body>
+</html>
